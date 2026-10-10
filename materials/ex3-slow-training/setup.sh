@@ -1,14 +1,14 @@
 #!/bin/bash
-# One-time setup for the exercise. Run from inside the materials/ folder:
-#     bash setup.sh project_46XXXXXXX
+# One-time setup for the exercise. Run from inside the `ex3-slow-training/` folder:
+#     bash setup.sh project_462001520
 set -euo pipefail
 
 # Path to the LUMI AI Factory PyTorch container (filled in by the organisers)
-SIF_PATH="<path to the LUMI AI Factory PyTorch container>"
+SIF_PATH="/appl/local/laifs/containers/lumi-multitorch-latest.sif"
 
 PROJECT="${1:-}"
 if [[ ! "$PROJECT" =~ ^project_[0-9]+$ ]]; then
-    echo "Usage: bash setup.sh project_46XXXXXXX   (your own LUMI project)" >&2
+    echo "Usage: bash setup.sh project_462001520   (the workshop project)" >&2
     exit 1
 fi
 cd "$(dirname "$0")"
@@ -27,8 +27,8 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     git init -q
     echo "git: new repository created"
 fi
-git config user.name  >/dev/null || git config --global user.name  "$USER"
-git config user.email >/dev/null || git config --global user.email "$USER@lumi"
+git config user.name  >/dev/null || git config user.name  "$USER"
+git config user.email >/dev/null || git config user.email "$USER@lumi"
 
 # 3. Baseline commit (only if there is something new to commit)
 git add .

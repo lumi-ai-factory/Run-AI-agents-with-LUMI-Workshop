@@ -10,9 +10,17 @@ The script contains several deliberate performance mistakes, and one piece of mi
 
 ## What you're given
 
+Work in `materials/ex3-slow-training/`. If OpenCode is open, quit it (type `/exit`), then start it there:
+
+```bash
+cd /scratch/project_462001520/$USER/agent-workshop/materials/ex3-slow-training
+module load Local-LAIF lumi-aif-agents
+opencode
+```
+
 `train_shapes.py` trains a small convolutional network to tell circles, squares and crosses apart in noisy 48×48 images. It generates its own data, so there is nothing to download, and it reports time per step and test accuracy. With `--profile` it profiles ten steady-state steps instead of training, and writes a timeline to `trace.json`. It works as it stands, and the model should not need to change.
 
-`job.sh` runs the script on one GPU; anything you put after `job.sh` on the `sbatch` line is passed on to the script. `setup.sh` prepares the folder: run it once with your project, as `bash setup.sh` `project_462001520`, and it fills in job.sh, sets up Git and commits the starting point. `RESULTS.md` is the table to fill in.
+`job.sh` runs the script on one GPU; anything you put after `job.sh` on the `sbatch` line is passed on to the script. `setup.sh` prepares the folder: run it once with the workshop project, as `bash setup.sh project_462001520`, and it fills in job.sh, sets up Git and commits the starting point. `RESULTS.md` is the table to fill in.
 
 ## Background
 
@@ -27,7 +35,7 @@ Profiling records how long each operation takes, on the CPU and on the GPU, and 
 
 1. Get `train_shapes.py` running as a batch job and note the time per step and the test accuracy.
 2. Before profiling, ask the agent which parts it expects to dominate the time, with rough fractions. Write the answer down, and note whether it followed the `TODO`.
-3. Profile a handful of steady-state steps. Skip the first few: the opening passes carry one-off 4. setup and are representative of nothing.
+3. Profile a handful of steady-state steps. Skip the first few: the opening passes carry one-off setup and are representative of nothing.
 4. Record the five most expensive operations in `RESULTS.md`, from the CPU table as well as the GPU table, with their share of the total and how many times each was called.
 
 ## Part 2 — let the evidence decide
@@ -42,7 +50,7 @@ Give the agent the profile, not your conclusions. Every cause it names should co
 Same model, same data, same batch size, same number of steps, same augmentation. Anything else and you are making it train less, not faster.
 
 7. Have the agent fix only the top-ranked cause, and predict the new time per step before you run it.
-8. Review the diff, commit, measure, and add one row to the fixes table: the change, the 9. prediction, the measurement and the test accuracy.
+8. Review the diff, commit, measure, and add one row to the fixes table: the change, the prediction, the measurement and the test accuracy.
 9. Repeat, profiling again whenever the ranking might have changed. Stop when a fix no longer makes a measurable difference.
 10. Write a short paragraph on what dominated the time, how you knew, and whether the `TODO` was right.
     

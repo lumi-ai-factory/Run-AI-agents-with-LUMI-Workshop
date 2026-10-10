@@ -13,7 +13,7 @@ Your job: get it running on one LUMI GPU, using the agent and the LUMI documenta
 ## What you're given
 
 ```text
-material/
+materials/ex2-laptop-to-lumi/
 ├── README_laptop.md   your colleague's setup notes, written for a laptop
 ├── requirements.txt   the Python packages they install with pip
 └── train_small.py     the training script; you should not need to change it
@@ -25,18 +25,26 @@ material/
 On LUMI, PyTorch runs on AMD GPUs through ROCm. The PyTorch API still calls them `cuda` devices, which surprises people: code that uses `.cuda()` or `torch.device("cuda")` usually works unchanged. What does not carry over is the installation: a `pip install torch` gives you a build for NVIDIA GPUs, and Python environments with thousands of small files are hard on LUMI's shared file system. The LUMI AI Factory provides ready-made containers for this.
 
 ## What to do
-1. Start OpenCode in `02-laptop-to-lumi/` and ask the agent to read `README_laptop.md` and explain what would not work on LUMI, with documentation links.
-2. Ask it to write `job.sh`: a Slurm batch script that runs `train_small.py` on one GPU for at most 10 minutes, using a LUMI AI Factory container and your project account. Tell it not to install anything.
+1. If OpenCode is open, quit it (type `/exit`). Start it in `materials/ex2-laptop-to-lumi/`:
+
+   ```bash
+   cd /scratch/project_462001520/$USER/agent-workshop/materials/ex2-laptop-to-lumi
+   module load Local-LAIF lumi-aif-agents
+   opencode
+   ```
+
+   Ask the agent to read `README_laptop.md` and explain what would not work on LUMI, with documentation links.
+2. Ask it to write `job.sh`: a Slurm batch script that runs `train_small.py` on one GPU for at most 10 minutes, using a LUMI AI Factory container and the workshop project. Tell it not to install anything.
 3. Check the script against the documentation pages it cites. Fix anything that doesn't match.
-4. Submit it yourself from your login node/ terminal, and read the output.
-5. If the job fails, ask opencode to read error file and iterate.
+4. Submit it yourself with `sbatch job.sh` from a second terminal (another **Login node shell**, in the same directory), and read the output.
+5. If the job fails, ask the agent to read the job's output file and fix the script, then submit again.
 
 ## Done when
 The output file shows an AMD Instinct device name, the loss going down, and a time per step.
+
 One warning, because it costs people time: if the agent's first idea is a `pip install`, a `conda create` or a virtual environment, push back and ask it to check the LUMI documentation for containers first.
 
 ## Going further
-Ask the agent: 
 - Run with `--steps 2000` and compare the time per step with a CPU-only run (`--cpu`). Is the GPU worth it at this size? At `--hidden 4096`?
 - Ask the agent to write an updated `README_lumi.md` for the colleague. Would you send it as is?
 - Ask what the job was charged for. Does requesting more memory or CPU cores change the billing on a GPU partition?
