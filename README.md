@@ -120,7 +120,7 @@ Download the exercise material from GitHub into your own scratch space, then sta
 export PROJECT=project_462001520                          
 mkdir -p /scratch/$PROJECT/$USER
 cd /scratch/$PROJECT/$USER
-git clone https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
+git clone https://github.com/lumi-ai-factory/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
 cd agent-workshop
 
 module load Local-LAIF lumi-aif-agents
