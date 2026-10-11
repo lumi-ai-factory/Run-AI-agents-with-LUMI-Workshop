@@ -107,7 +107,7 @@ Each exercise has its own instructions file. Exercise 1 is a warm-up with no cod
 
 | # | Instructions | Code directory | Problem |
 |---|---|---|---|
-| 1 | [`exercise1`](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/blob/main/Task/Exercise1.md) | — | Find out what the agent can see, do and get wrong on LUMI. |
+| 1 | [Exercise 1](Exercise1.md) | — | Find out what the agent can see, do and get wrong on LUMI. |
 | 2 | [Exercise 2](Exercise2.md) | `02-laptop-to-lumi/` | In this exercise, you learn how to check the agent’s work against the LUMI documentation.|
 | 3 | [Exercise 3](Exercise3.md) | `03-gpu-profiling/` | In this exercise, you use an AI agent to find out why a slow image-training script leaves the GPU mostly waiting |
 
