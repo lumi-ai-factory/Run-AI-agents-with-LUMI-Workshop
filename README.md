@@ -274,7 +274,7 @@ module load Local-LAIF lumi-aif-agents
 opencode
 ```
 
-Check that an Aitta LLM is selected ([see here](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/tree/main/Hands-on/OpenCode#3-connect-to-aitta-and-pick-an-llm)), then ask:  
+Check that an Aitta LLM is selected ([see here](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/tree/main#2-start-opencode-in-the-container), then ask:  
 
 ```bash
 Which tools do you have from the LUMI MCP server, and what does each one do?
