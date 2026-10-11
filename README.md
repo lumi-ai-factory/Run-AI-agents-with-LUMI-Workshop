@@ -1,8 +1,8 @@
-# LUMI AI AGENT
+# Run AI agents with LUMI – Nordic AI Factory Summit 2026 workshop
 
 The LUMI AI Factory agent environment is a [containerized environment](https://docs.lumi-supercomputer.eu/software/containers/singularity/) for running AI coding agents on LUMI in a more secure manner. Currently, we provide a container for using the open-source, terminal-based OpenCode AI coding agent. For more information on OpenCode, see the LUMI AI Factory blog post on connecting [OpenCode to a vLLM instance running on LUMI](https://lumi-supercomputer.eu/connecting-opencode-to-lumi/) . The source code of the agent environment is available in a public [GitHub repository](https://github.com/lumi-ai-factory/laifs-agent-env).
 
-## Setup
+## Part-1 Setup
 
 # Run an AI agent on LUMI with OpenCode
 
@@ -21,7 +21,7 @@ Give the agent its own folder, under version control, so you can see and undo ev
 ```
 ssh <username>@lumi.csc.fi
 
-export PROJECT=project_462001520          # your own LUMI project
+export PROJECT=project_462001520          
 mkdir -p /scratch/$PROJECT/$USER/ai-agent
 cd /scratch/$PROJECT/$USER/ai-agent
 ```
@@ -59,7 +59,37 @@ Choose Allow once.
 > [!warning]
 > Choose "Allow once" unless you are sure. "Allow always" lets the agent do that kind of action freely for the rest of the session, and the agent can also reach the folder where OpenCode keeps your API token.
 
-# AI Agents on LUMI — Exercises
+
+## 5. Let the agent write a job, submit it yourself
+
+Use the agent for what it is good at, while you stay in charge of the shared system.
+
+Ask:
+
+```
+First, create a Python script hello.py that prints "hello from LUMI", the hostname of the node it runs on, and the current date and time.
+
+Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account <your project>. Check the LUMI documentation for the right partition, and write the job's output to a file named after the job ID.
+
+Save both files in the current directory. Do not try to submit the job.
+```
+
+Approve the file write with Allow once. Then check the script yourself against [the LUMI Slurm documentation](https://docs.lumi-supercomputer.eu/runjobs/scheduled-jobs/batch-job/): account, partition, time limit and resources.
+
+Submit it from terminal, outside the opencode:
+
+```
+cd /scratch/$PROJECT/$USER/ai-agent
+sbatch job.sh
+squeue --me
+cat slurm-*.out        # after the job finishes
+```
+
+The output file contains `hello from LUMI`.
+
+If it fails: paste the `sbatch` error into OpenCode and ask the agent to fix the script. Inside the container, `sbatch: command not found` is expected.
+
+# Part-2 AI Agents on LUMI — Exercises
 
 Three exercises to test what a coding agent can and cannot do for you on LUMI. You work with OpenCode in the LUMI AI Factory container, using an LLM on Aitta and the LUMI MCP server for documentation (see the hands-on guides Part 1 and Part 2).
 
@@ -78,21 +108,20 @@ Each exercise has its own instructions file. Exercise 1 is a warm-up with no cod
 | # | Instructions | Code directory | Problem |
 |---|---|---|---|
 | 1 | [`exercise1`](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/blob/main/Task/Exercise1.md) | — | Find out what the agent can see, do and get wrong on LUMI. |
-| 2 | [`exercise2`](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/tree/main/Task/Exercise2) | `laptop-to-lumi/` | A training script written for a laptop with an NVIDIA GPU has to run on LUMI. |
-| 3 | [`exercise3`](exercise-03-job-sweep.md) | `03-job-sweep/` | A parameter sweep submits 20 jobs one by one and floods the Slurm scheduler. |
-| 4 | [`exercise3`](exercise-03-job-sweep.md) | `xxx` | xx |
-| 5 | [`exercise3`](exercise-03-job-sweep.md) | `xx` | xx |
+| 2 | [`exercise2`](https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/tree/main/Task/Exercise2) | `laptop-to-lumi/` | In this exercise, you learn how to check the agent’s work against the LUMI documentation.|
+| 3 | [`exercise3`]((https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop/blob/main/Exercise3.md)) | `03-job-sweep/` | In this exercise, you use an AI agent to find out why a slow image-training script leaves the GPU mostly waiting |
 
 
 ## Get started
 
-Copy the exercise material from the shared project folder into your own scratch space, then start the agent there:
+Download the exercise material from GitHub into your own scratch space, then start the agent there:
 
 ```bash
-export PROJECT=project_462001520                          # your own LUMI project
+export PROJECT=project_462001520                          
 mkdir -p /scratch/$PROJECT/$USER
-cp -r /project/<workshop-project>/agent-workshop /scratch/$PROJECT/$USER/
-cd /scratch/$PROJECT/$USER/agent-workshop
+cd /scratch/$PROJECT/$USER
+git clone https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
+cd agent-workshop
 
 module load Local-LAIF lumi-aif-agents
 opencode
@@ -189,7 +218,7 @@ Out of the box, OpenCode uses OpenCode Zen, a model service run by the company t
 
 ### OpenCode
 
-On LUMI, the OpenCode container is already connected to the MCP server, so there is nothing to do. On your own machine, the `opencode.json` from the [previous chapter](/02_opencode#opencode-on-your-own-machine) already includes it.
+On LUMI, the OpenCode container is already connected to the MCP server, so there is nothing to do. On your own machine, the `opencode.json` already includes it.
 
 ### Claude Code
 
@@ -222,7 +251,7 @@ Most other harnesses and apps, such as VS Code, can connect to a remote MCP serv
 
 ## Want to learn more about MCP servers on LUMI?
 
-The LUMI AI Factory runs a public MCP server that fills this gap. It lets your agent look things up in the LUMI documentation and check LUMI's current status, so it can answer questions about LUMI more accurately and write code suited to the system. It works with any harness or app that supports MCP, such as OpenCode, Claude Code, Codex or VS Code, whichever LLM it uses. You do not need an account or an API token to use it.
+An LLM on its own doesn’t know LUMI’s current documentation or whether LUMI is running normally today, so it often answers from general experience with other systems. The LUMI AI Factory runs a public MCP server that fills this gap. It lets your agent look things up in the LUMI documentation and check LUMI's current status, so it can answer questions about LUMI more accurately and write code suited to the system. It works with any harness or app that supports MCP, such as OpenCode, Claude Code, Codex or VS Code, whichever LLM it uses. You do not need an account or an API token to use it.
 
 ## What it can do
 
@@ -240,7 +269,7 @@ On LUMI, the OpenCode container is already connected to the MCP server, so there
 
 ```bash
 export PROJECT=project_462001520
-cd /scratch/$PROJECT/$USER/agent-lab
+cd /scratch/$PROJECT/$USER/ai-agent
 module load Local-LAIF lumi-aif-agents
 opencode
 ```
