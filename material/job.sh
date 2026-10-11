@@ -9,6 +9,7 @@
 #SBATCH --mem=60G
 #SBATCH --time=00:15:00
 #SBATCH --output=%x_%j.out
+##SBATCH --reservation=
 
 # Load the LUMI AI Factory bind-mount setup (sets SINGULARITY_BIND)
 module use /appl/local/laifs/modules
