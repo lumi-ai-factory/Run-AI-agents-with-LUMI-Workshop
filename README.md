@@ -1,4 +1,4 @@
-# Run AI agents with LUMI
+# Run AI agents with LUMI – Nordic AI Factory Summit 2026 workshop
 
 The LUMI AI Factory agent environment is a [containerized environment](https://docs.lumi-supercomputer.eu/software/containers/singularity/) for running AI coding agents on LUMI in a more secure manner. Currently, we provide a container for using the open-source, terminal-based OpenCode AI coding agent. For more information on OpenCode, see the LUMI AI Factory blog post on connecting [OpenCode to a vLLM instance running on LUMI](https://lumi-supercomputer.eu/connecting-opencode-to-lumi/). The source code of the agent environment is available in a public [GitHub repository](https://github.com/lumi-ai-factory/laifs-agent-env).
 
@@ -60,6 +60,35 @@ Choose Allow once.
 
 > [!warning]
 > Choose "Allow once" unless you are sure. "Allow always" lets the agent do that kind of action freely for the rest of the session, and the agent can also reach the folder where OpenCode keeps your API token.
+
+### 6. Let the agent write a job, submit it yourself
+
+Use the agent for what it is good at, while you stay in charge of the shared system.
+
+Ask:
+
+```
+First, create a Python script hello.py that prints "hello from LUMI", the hostname of the node it runs on, and the current date and time.
+
+Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account project_462001520. Check the LUMI documentation for the right partition, and write the job's output to a file named slurm-<job ID>.out.
+
+Save both files in the current directory. Do not try to submit the job.
+```
+
+Approve the file write with Allow once. Then check the script yourself against [the LUMI Slurm documentation](https://docs.lumi-supercomputer.eu/runjobs/scheduled-jobs/batch-job/): account, partition, time limit and resources.
+
+Submit it from a second terminal (another **Login node shell**), outside OpenCode:
+
+```
+cd /scratch/project_462001520/$USER/first-steps
+sbatch job.sh
+squeue --me
+cat slurm-*.out        # after the job finishes
+```
+
+The output file contains `hello from LUMI`.
+
+If it fails: paste the `sbatch` error into OpenCode and ask the agent to fix the script. Inside the container, `sbatch: command not found` is expected.
 
 ## AI Agents on LUMI — Exercises
 
