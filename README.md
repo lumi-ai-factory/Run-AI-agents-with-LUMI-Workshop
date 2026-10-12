@@ -93,12 +93,13 @@ If it fails: paste the `sbatch` error into OpenCode and ask the agent to fix the
 ## AI Agents on LUMI — Exercises
 
 Four exercises to test what a coding agent can and cannot do for you on LUMI, hopefully teaching you something useful in a fun way :)
-You work with OpenCode in the LUMI AI Factory container, using an LLM on Aitta and the LUMI MCP server for documentation (see [Setup](#setup)).
+
+You will work with OpenCode in the LUMI AI Factory container, using an LLM on Aitta and the LUMI MCP server for documentation (see [Setup](#setup)).
 
 All exercises are small: at most one GPU, and jobs run for seconds or minutes, not hours.
 
 ## Ground rules
-1. You are in charge. Every command the agent runs is executed as you. Read every permission request; choose Allow once unless you are sure.
+1. You are in charge. Every command the agent runs is executed as you. The container keeps the agent away from Slurm, but it can still change or delete your files, so read every permission request before approving it.
 2. The agent writes, you submit. Slurm is not available inside the container. When a job script is ready, check it and run sbatch yourself from a second terminal: open another **Login node shell** at www.lumi.csc.fi, `cd` to the same directory and run `sbatch job.sh`.
 3. Verify, don't trust. Ask the agent for links to the LUMI documentation it used, and open them.
 4. Synthetic data only. Never give the agent sensitive data or credentials.
