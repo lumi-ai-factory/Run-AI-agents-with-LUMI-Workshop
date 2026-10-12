@@ -24,7 +24,7 @@ Give the agent its own directory, under version control, so you can see and undo
 export PROJECT=project_462001520     # the workshop project
 mkdir -p /scratch/$PROJECT/$USER/first-steps     # your own directory in the project
 cd /scratch/$PROJECT/$USER
-git clone https://github.com/mahnoormahnoorr/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
+git clone https://github.com/lumi-ai-factory/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
 ```
 
 ### 3. Start OpenCode in the container
@@ -42,10 +42,10 @@ opencode
 Inside OpenCode:
 1. Type `/connect` and search for aitta.
 2. Paste your Aitta API token.
-3. Pick an LLM from the list, or type `/models` and filter by `aitta`. Use the model your instructor names, for example Qwen3.6-27B.
+3. Pick an LLM from the list, or type `/models` and filter by `aitta`. A model that is already running ([check in Aitta](https://aitta.csc.fi/public)) saves you a wait.
 
 Good to know:
-- OpenCode saves the token in your home directory, so you only run `/connect` again when the token expires, after 90 days.
+- OpenCode saves the token in your home directory, so you only run `/connect` again when the token expires.
 - Always check the status line at the bottom of the OpenCode window before your first prompt. It shows which LLM your prompts and files are sent to, and where it is hosted.
 
 ### 5. Watch the agent loop
@@ -63,7 +63,8 @@ Choose Allow once.
 
 ## AI Agents on LUMI — Exercises
 
-Four exercises to test what a coding agent can and cannot do for you on LUMI. You work with OpenCode in the LUMI AI Factory container, using an LLM on Aitta and the LUMI MCP server for documentation (see [Setup](#setup)).
+Four exercises to test what a coding agent can and cannot do for you on LUMI, hopefully teaching you something useful in a fun way :)
+You work with OpenCode in the LUMI AI Factory container, using an LLM on Aitta and the LUMI MCP server for documentation (see [Setup](#setup)).
 
 All exercises are small: at most one GPU, and jobs run for seconds or minutes, not hours.
 
@@ -79,31 +80,33 @@ Each exercise has its own instructions file. Pick the ones that interest you, or
 
 If OpenCode is still open from the setup, quit it first (type `/exit`): each exercise tells you which directory to start it in.
 
-| # | Instructions | Files | What it's about | Time |
+| # | Exercise | What you do | You need | Time |
 |---|---|---|---|---|
-| 0 | [Exercise0.md](Exercise0.md) | `materials/ex0-coffee-tracker/` | What happens when an agent reads someone else's project? | 10 min |
-| 1 | [Exercise1.md](Exercise1.md) | — | Same questions, bare LLM vs agent with the LUMI MCP server. No code. | 30 min |
-| 2 | [Exercise2.md](Exercise2.md) | `materials/ex2-laptop-to-lumi/` | A training script written for an NVIDIA laptop has to run on LUMI. | 30 min |
-| 3 | [Exercise3.md](Exercise3.md) | `materials/ex3-slow-training/` | A slow training script: find out where the time really goes. | 60 min |
+| 0 | [Coffee tracker](Exercise0.md) | Ask the agent whether a colleague's script is safe to run, and see what it does with instructions hidden in the files. | Nothing, no coding. | 10 min |
+| 1 | [Hallucination bingo](Exercise1.md) | Ask the same LUMI questions to a bare model in the web chat and to the agent with the LUMI docs, then score the answers. | Nothing, no coding. | 30 min |
+| 2 | [Laptop to LUMI](Exercise2.md) | Get a PyTorch script written for an NVIDIA laptop running on a LUMI GPU, in a container, as a batch job. | Some Python and Slurm. Good if you want to move your own code to LUMI. | 30 min, 1 GPU |
+| 3 | [Slow training](Exercise3.md) | Profile a slow PyTorch training script, find where the time goes, and fix it one change at a time. | Comfortable with PyTorch training loops. Best if you do ML yourself. | 60 min, 1 GPU |
 
 ## Bring your own code
 
-Once you have tried an exercise, you are welcome to work on your own code instead of the remaining exercises, for example your own research or a project you are curious about. 
+You are also welcome to work on your own code instead of the remaining exercises, for example your own research or something you are curious about.
 
 ## When something fails
 
-Note it down. "The agent got this wrong" is a result, not a failure: one goal today is to learn where agents help and where they don't. Bring your examples to the wrap-up discussion.
+Note it down. "The agent got this wrong" is a result: one goal today is to learn where agents help and where they don't. We're also testing whether the open models on Aitta are good enough to drive an agent at all, so failures that look like the model's fault are useful too. Bring your examples to the wrap-up discussion.
+
+And the conversation doesn't have to end there. Mahnoor and Artur, who put this workshop together, are staying for the evening mingling event. Come find us! We genuinely want to hear how it went for you: we'd be super happy to discuss your findings and what you thought of the workshop!
 
 ## Optional: share your session
 
-If you are happy to help us improve the setup, quit OpenCode and export a session from your working directory:
+Your sessions help us improve the setup, and they also show us where agents actually go wrong on LUMI. We're still learning that ourselves. If you're happy to share, quit OpenCode and export a session from your working directory:
 
 ```bash
 module load Local-LAIF lumi-aif-agents     # if this is a new terminal
 opencode export > ~/agent-workshop-session.json
 ```
 
-Select your session when asked, and send the file to the organisers. Check it first: it contains everything you typed and everything the agent read. Email it to mahnoor.mahnoor@csc.fi.
+Select your session when asked, and send the file to the organisers. Check it first: it contains everything you typed and everything the agent read. Email it to mahnoor.mahnoor@csc.fi
 
 ## After the workshop
 
@@ -170,75 +173,11 @@ Out of the box, OpenCode uses OpenCode Zen, a model service run by the company t
 
 </details>
 
-### Want to learn more about MCP servers on LUMI?
+### Want to learn more?
 
-An LLM on its own knows little about LUMI, and what it knows may be out of date. The LUMI AI Factory runs a public MCP server that lets your agent look things up in the LUMI documentation and check LUMI's current status, so it can answer questions about LUMI more accurately and write code suited to the system. It works with any harness or app that supports MCP, such as OpenCode, Claude Code, Codex or VS Code, whichever LLM it uses. You do not need an account or an API token to use it.
+How to keep OpenCode contained, and what it can do without asking you? See the [OpenCode page](https://lumi-ai-factory.github.io/agent-ecosystem/02_opencode/) of the LUMI agent ecosystem guide.
 
-### What it can do
-
-The LUMI MCP server gives your agent two tools:
-
-| Tool | What it does | Helps with questions like |
-|:-----|:-------------|:--------------------------|
-| `retrieve_docs` | Searches a regularly updated knowledge base of the [LUMI documentation](https://docs.lumi-supercomputer.eu/) and the [LUMI AI Guide](https://github.com/Lumi-supercomputer/LUMI-AI-Guide), and returns the most relevant passages with links to their sources | "How do I run PyTorch on LUMI?" |
-| `get_service_status` | Reports LUMI's current status, planned maintenance and ongoing incidents | "Why is my job not starting? Is something down?" |
-
-### Add the LUMI MCP server to your harness
-
-#### OpenCode
-
-On LUMI, the OpenCode container is already connected to the MCP server, so there is nothing to do. On your own machine, the `opencode.json` from [OpenCode on your own machine](#opencode-on-your-own-machine) already includes it.
-
-#### Claude Code
-
-Run this once to make the server available in all your projects:
-
-```bash
-claude mcp add --transport http --scope user lumi-aif https://lumi-aif-agents.2.rahtiapp.fi/mcp
-```
-
-See the [Claude Code MCP documentation](https://code.claude.com/docs/en/mcp) for other options.
-
-#### Claude on the web
-
-Settings → Connectors → Add custom connector, and paste the URL (https://lumi-aif-agents.2.rahtiapp.fi/mcp) 
-
-#### Codex
-
-Add these lines to `~/.codex/config.toml`:
-
-```toml title="~/.codex/config.toml"
-[mcp_servers.lumi-aif]
-url = "https://lumi-aif-agents.2.rahtiapp.fi/mcp"
-```
-
-See the [Codex MCP documentation](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) for other options.
-
-#### Other harnesses
-
-Most other harnesses and apps, such as VS Code, can connect to a remote MCP server too. Look in their documentation for how to add one, and give it the address `https://lumi-aif-agents.2.rahtiapp.fi/mcp`.
-
-### 1. Find the MCP tools in OpenCode
-
-On LUMI, the OpenCode container is already connected to the MCP server, so there is nothing to set up. Start OpenCode as in [Setup](#setup).
-
-Check that an Aitta LLM is selected ([see here](#4-connect-to-aitta-and-pick-an-llm)), then ask:  
-
-```txt
-Which tools do you have from the LUMI MCP server, and what does each one do?
-How's LUMI doing right now?
-```
-### 2. See exactly what the agent receives
-
-Call `retrieve_docs` yourself, without any agent or LLM involved.
-Run this in a terminal on LUMI or on your laptop. No login or token is needed:
-
-```bash
-curl -s https://lumi-aif-agents.2.rahtiapp.fi/mcp \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json, text/event-stream' \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"retrieve_docs","arguments":{"query":"agent infrastructure","k":1}}}'
-```
+What the LUMI MCP server's tools do, how to add it to Claude Code, Codex or other harnesses, and how to call it yourself with curl? See the [MCP server page](https://lumi-ai-factory.github.io/agent-ecosystem/03_mcp_server/).
 
 ## Credits
 

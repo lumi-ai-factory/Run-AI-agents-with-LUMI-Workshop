@@ -114,14 +114,19 @@ These only make sense in OpenCode on LUMI, because they are about what the agent
     I want to run a PyTorch script in a batch job on LUMI-G. Which LUMI AI Factory container should I use, which module do I load for the bind mounts, and what is the exact command to run python inside the container? Quote the documentation page you used.
     ```
 
+<details>
+<summary><b>Question 7: who decides about permissions?</b></summary>
+
+Permissions are set by the harness (OpenCode): when the model asks to call a tool, OpenCode checks its own configuration and either runs the call, asks you first, or refuses. The model is never told which tools need your approval, so whatever it said about permissions was a guess. Compare its answer with what actually happened in questions 8 and 9.
+
+</details>
+
 ## Bonus
 
-Find one question where the agent is still wrong, even with the documentation. Bring it to the wrap-up: the best catch wins eternal glory.
+Find one question where the agent is still wrong, even with the documentation.
 
 ## Things to notice
 
 - Did the bare model admit it didn't know, or did it answer confidently anyway?
 - When the agent used the MCP server, was the answer actually better, or just longer?
 - Did any answer look right but fail when you checked the link or ran the command?
-
-If anything failed or gave an answer you didn't expect, flag it to the organisers.
