@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=slow-training
-#SBATCH --account=project_46XXXXXXX
+#SBATCH --account=project_462001520
 #SBATCH --partition=small-g
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -20,7 +20,7 @@ SIF="<path to the LUMI AI Factory PyTorch container>"
 
 if [ ! -f "$SIF" ]; then
     echo "ERROR: container not found: $SIF" >&2
-    echo "Run 'bash setup.sh <your project>' first, or ask the organisers for the container path." >&2
+    echo "Run 'bash setup.sh project_462001520' first, or ask the organisers for the container path." >&2
     exit 1
 fi
 
