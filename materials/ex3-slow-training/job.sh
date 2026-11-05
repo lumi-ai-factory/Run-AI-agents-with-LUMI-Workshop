@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=slow-training
-#SBATCH --account=project_462001520
+#SBATCH --account=project_462001444
 #SBATCH --partition=small-g
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -9,7 +9,7 @@
 #SBATCH --mem=60G
 #SBATCH --time=00:15:00
 #SBATCH --output=%x_%j.out
-##SBATCH --reservation=
+#SBATCH --reservation=run-agent-with-lumi
 
 # Load the LUMI AI Factory bind-mount setup (sets SINGULARITY_BIND)
 module use /appl/local/laifs/modules
