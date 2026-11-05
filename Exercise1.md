@@ -23,8 +23,8 @@ Note: not every model on Aitta handles tool calls well. With some, the agent may
 2. If OpenCode is open, quit it (type `/exit`). Start it again in a new, empty directory:
 
    ```bash
-   mkdir -p /scratch/project_462001520/$USER/ex1
-   cd /scratch/project_462001520/$USER/ex1
+   mkdir -p /scratch/project_462001444/$USER/ex1
+   cd /scratch/project_462001444/$USER/ex1
    module load Local-LAIF lumi-aif-agents
    opencode
    ```
