@@ -136,7 +136,7 @@ module load Local-LAIF lumi-aif-agents     # if this is a new terminal
 opencode export > ~/agent-workshop-session.json
 ```
 
-Select your session when asked, and send the file to the organisers. Check it first: it contains everything you typed and everything the agent read. Email it to mahnoor.mahnoor@csc.fi
+Select your session when asked, and send the file to the organisers. Check it first: it contains everything you typed and everything the agent read. Email it to support@lumi-ai-factory.eu
 
 ## After the workshop
 
