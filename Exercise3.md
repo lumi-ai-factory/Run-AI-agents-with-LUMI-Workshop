@@ -13,7 +13,7 @@ The script contains several deliberate performance mistakes, and one piece of mi
 Work in `materials/ex3-slow-training/`. If OpenCode is open, quit it (type `/exit`), then start it there:
 
 ```bash
-cd /scratch/project_462001520/$USER/agent-workshop/materials/ex3-slow-training
+cd /scratch/project_462001444/$USER/agent-workshop/materials/ex3-slow-training
 module load Local-LAIF lumi-aif-agents
 opencode
 ```
