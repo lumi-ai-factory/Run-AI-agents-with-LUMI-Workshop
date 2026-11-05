@@ -28,7 +28,7 @@ On LUMI, PyTorch runs on AMD GPUs through ROCm. The PyTorch API still calls them
 1. If OpenCode is open, quit it (type `/exit`). Start it in `materials/ex2-laptop-to-lumi/`:
 
    ```bash
-   cd /scratch/project_462001520/$USER/agent-workshop/materials/ex2-laptop-to-lumi
+   cd /scratch/project_462001444/$USER/agent-workshop/materials/ex2-laptop-to-lumi
    module load Local-LAIF lumi-aif-agents
    opencode
    ```
