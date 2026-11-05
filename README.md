@@ -4,7 +4,7 @@ The LUMI AI Factory agent environment is a [containerized environment](https://d
 
 ## What you need
 
-A LUMI account, access to the workshop project `project_462001520`, and an [Aitta API Token](https://aitta-auth.csc.fi/myToken) (choose the workshop project).
+A LUMI account, access to the workshop project `project_462001444`, and an [Aitta API Token](https://aitta-auth.csc.fi/myToken) (choose the workshop project).
 
 > Before you start:
 > every command the agent runs is executed under your user account, and you are responsible for it. Read the [LUMI AI agent guide](https://docs.lumi-supercomputer.eu/development/ai-tools/ai-agent-guide/) before your first session. Never give the agent sensitive or confidential data.
@@ -21,7 +21,7 @@ Go to [www.lumi.csc.fi](https://www.lumi.csc.fi), log in, and open **Login node 
 
 Give the agent its own directory, under version control, so you can see and undo every change it makes.
 ```bash
-export PROJECT=project_462001520     # the workshop project
+export PROJECT=project_462001444     # the workshop project
 mkdir -p /scratch/$PROJECT/$USER/first-steps     # your own directory in the project
 cd /scratch/$PROJECT/$USER
 git clone https://github.com/lumi-ai-factory/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
@@ -70,7 +70,7 @@ Ask:
 ```
 First, create a Python script hello.py that prints "hello from LUMI", the hostname of the node it runs on, and the current date and time.
 
-Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account project_462001520. Check the LUMI documentation for the right partition, and write the job's output to a file named slurm-<job ID>.out.
+Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account project_462001444. Check the LUMI documentation for the right partition, and write the job's output to a file named slurm-<job ID>.out.
 
 Save both files in the current directory. Do not try to submit the job.
 ```
@@ -80,7 +80,7 @@ Approve the file write with Allow once. Then check the script yourself against [
 Submit it from a second terminal (another **Login node shell**), outside OpenCode:
 
 ```
-cd /scratch/project_462001520/$USER/first-steps
+cd /scratch/project_462001444/$USER/first-steps
 sbatch job.sh
 squeue --me
 cat slurm-*.out        # after the job finishes
@@ -125,7 +125,7 @@ You are also welcome to work on your own code instead of the remaining exercises
 
 Note it down. "The agent got this wrong" is a result: one goal today is to learn where agents help and where they don't. We're also testing whether the open models on Aitta are good enough to drive an agent at all, so failures that look like the model's fault are useful too. Bring your examples to the wrap-up discussion.
 
-And the conversation doesn't have to end there. Mahnoor and Artur, who put this workshop together, are staying for the evening mingling event. Come find us! We genuinely want to hear how it went for you: we'd be super happy to discuss your findings and what you thought of the workshop!
+And the conversation doesn't have to end there. We genuinely want to hear how it went for you: we'd be super happy to discuss your findings and what you thought of the workshop!
 
 ## Optional: share your session
 
