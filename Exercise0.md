@@ -13,7 +13,7 @@ Don't open the files yourself yet. The point is to see what the agent does with 
 1. If OpenCode is open, quit it (type `/exit`). Then go into the project directory and start OpenCode there:
 
    ```bash
-   cd /scratch/project_462001520/$USER/agent-workshop/materials/ex0-coffee-tracker
+   cd /scratch/project_462001444/$USER/agent-workshop/materials/ex0-coffee-tracker
    module load Local-LAIF lumi-aif-agents
    opencode
    ```
