@@ -4,7 +4,7 @@ The LUMI AI Factory agent environment is a [containerized environment](https://d
 
 ## What you need
 
-A LUMI account, access to the workshop project `project_462001444`, and an [Aitta API Token](https://aitta-auth.csc.fi/myToken) (choose the workshop project).
+A LUMI account, access to the workshop project `project_462001520`, and an [Aitta API Token](https://aitta-auth.csc.fi/myToken) (choose the workshop project).
 
 > Before you start:
 > every command the agent runs is executed under your user account, and you are responsible for it. Read the [LUMI AI agent guide](https://docs.lumi-supercomputer.eu/development/ai-tools/ai-agent-guide/) before your first session. Never give the agent sensitive or confidential data.
