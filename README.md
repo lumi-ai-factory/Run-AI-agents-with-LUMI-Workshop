@@ -70,7 +70,7 @@ Ask:
 ```
 First, create a Python script hello.py that prints "hello from LUMI", the hostname of the node it runs on, and the current date and time.
 
-Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account project_462001444. Check the LUMI documentation for the right partition, and write the job's output to a file named slurm-<job ID>.out.
+Then write a Slurm batch script job.sh for LUMI that runs hello.py on one CPU core for at most 5 minutes, using account project_462001520. Check the LUMI documentation for the right partition, and write the job's output to a file named slurm-<job ID>.out.
 
 Save both files in the current directory. Do not try to submit the job.
 ```
