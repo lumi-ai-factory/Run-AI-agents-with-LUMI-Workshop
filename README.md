@@ -80,7 +80,7 @@ Approve the file write with Allow once. Then check the script yourself against [
 Submit it from a second terminal (another **Login node shell**), outside OpenCode:
 
 ```
-cd /scratch/project_462001444/$USER/first-steps
+cd /scratch/project_462001520/$USER/first-steps
 sbatch job.sh
 squeue --me
 cat slurm-*.out        # after the job finishes
