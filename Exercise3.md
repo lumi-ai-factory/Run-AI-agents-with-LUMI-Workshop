@@ -31,19 +31,39 @@ The GPU can only be as busy as the CPU keeps it. In a Python training loop the C
 Profiling records how long each operation takes, on the CPU and on the GPU, and gives you a ranked list. The script labels its four phases — augmentation, copying to the device, the training step and logging — so they show up by name. The timeline in `trace.json` opens in Perfetto and shows the gaps where the GPU waits. A profile only covers what it records, though: the timer in the script covers the whole loop, and the two do not always agree.
 
 
-##  Part 1 — Guess (5 min)
+##  Part 1 — Find the slow part (10 min) 
 
-1. Submit both jobs right away so they run while you work: `sbatch job.sh` (baseline) and `sbatch job.sh --profile`.
-2. While they run, ask the agent which parts it expects to take most of the time per step, with rough percentages. Write it down in `RESULTS.md`. Did it follow the `TODO`?
+Ask the agent:
 
-## Part 2 — Check (10 min)
+```bash
+Read train_shapes.py. Without running anything, which part do you think takes most of the time?
+```
 
-3. Give the agent the profile output, not your conclusions. Ask it to name the top cause, with the profile rows and the lines of code that show it. Then open `trace.json` in Perfetto: is the GPU busy, or mostly waiting?
+Write down its answer. Did it just repeat the TODO?
 
-## Part 3 — Fix (10 min)
+When the profile job has finished, paste the profile output (from the .out file of the --profile job) into OpenCode and ask:
 
-4. Have the agent fix only the top cause, keeping the model, data, batch size, steps and augmentation the same. Ask it to predict the new time per step, then review the diff, commit and run `sbatch job.sh`.
-5. Fill in one row of the fixes table: change, prediction, measured time per step, test accuracy.
+```bash
+Here is the profile. What actually takes most of the time? Show me the profile rows and the lines of code.
+```
+
+Was the first guess right?
+
+## Part 2 — Fix it and measure (15 min)
+
+Ask the agent:
+
+```bash
+Fix only that one problem. Don't change the model, the data, the batch size or the number of steps. How fast do you expect it to be now?
+```
+
+Check the change with git diff, then run it again:
+
+```bash
+sbatch job.sh
+```
+
+Compare the new time per step and test accuracy with the first run, and write both in RESULTS.md.
 
 ## Done when
 
