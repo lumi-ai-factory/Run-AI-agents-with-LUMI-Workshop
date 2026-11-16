@@ -31,34 +31,25 @@ The GPU can only be as busy as the CPU keeps it. In a Python training loop the C
 Profiling records how long each operation takes, on the CPU and on the GPU, and gives you a ranked list. The script labels its four phases — augmentation, copying to the device, the training step and logging — so they show up by name. The timeline in `trace.json` opens in Perfetto and shows the gaps where the GPU waits. A profile only covers what it records, though: the timer in the script covers the whole loop, and the two do not always agree.
 
 
-## Part 1 — measure before you guess
+##  Part 1 — Guess (5 min)
 
-1. Get `train_shapes.py` running as a batch job and note the time per step and the test accuracy.
-2. Before profiling, ask the agent which parts it expects to dominate the time, with rough fractions. Write the answer down, and note whether it followed the `TODO`.
-3. Profile a handful of steady-state steps. Skip the first few: the opening passes carry one-off setup and are representative of nothing.
-4. Record the five most expensive operations in `RESULTS.md`, from the CPU table as well as the GPU table, with their share of the total and how many times each was called.
+1. Submit both jobs right away so they run while you work: `sbatch job.sh` (baseline) and `sbatch job.sh --profile`.
+2. While they run, ask the agent which parts it expects to take most of the time per step, with rough percentages. Write it down in `RESULTS.md`. Did it follow the `TODO`?
 
-## Part 2 — let the evidence decide
+## Part 2 — Check (10 min)
 
-Give the agent the profile, not your conclusions. Every cause it names should come with the profile rows that support it and the lines of code responsible.
+3. Give the agent the profile output, not your conclusions. Ask it to name the top cause, with the profile rows and the lines of code that show it. Then open `trace.json` in Perfetto: is the GPU busy, or mostly waiting?
 
-5. Have it rank the causes of the time per step, and compare the ranking with its guess.
-6. Check each claim yourself. Look at what the GPU is doing between kernels, not only at which kernels are slowest, and estimate how much of each step the GPU is actually busy.
+## Part 3 — Fix (10 min)
 
-## Part 3 — fix one thing at a time
+4. Have the agent fix only the top cause, keeping the model, data, batch size, steps and augmentation the same. Ask it to predict the new time per step, then review the diff, commit and run `sbatch job.sh`.
+5. Fill in one row of the fixes table: change, prediction, measured time per step, test accuracy.
 
-Same model, same data, same batch size, same number of steps, same augmentation. Anything else and you are making it train less, not faster.
-
-7. Have the agent fix only the top-ranked cause, and predict the new time per step before you run it.
-8. Review the diff, commit, measure, and add one row to the fixes table: the change, the prediction, the measurement and the test accuracy.
-9. Repeat, profiling again whenever the ranking might have changed. Stop when a fix no longer makes a measurable difference.
-10. Write a short paragraph on what dominated the time, how you knew, and whether the `TODO` was right.
-    
 ## Done when
 
-The time per step is at least twenty times lower than the baseline on the same training, the test accuracy is within a couple of points of where it started, and `RESULTS.md` has one row per fix plus your paragraph. Whatever you conclude about where the time went, point at the numbers in your own tables that support it.
+You have one measured fix and one sentence answering: was the `TODO` right, and which numbers show it?
 
-One warning, because it costs people time: if a fix should have helped and the time per step barely moved, check whether you moved the cost rather than removed it — from the training step into the logging, or from one synchronisation point to the next. And remember that the profile does not see everything the timer does.
+If the time barely moved, check whether you only moved the cost, for example into the logging or to another `.item()`.
 
 ## Going further
 
