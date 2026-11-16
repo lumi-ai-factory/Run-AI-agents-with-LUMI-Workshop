@@ -22,13 +22,23 @@ opencode
 
 `job.sh` runs the script on one GPU; anything you put after `job.sh` on the `sbatch` line is passed on to the script. `setup.sh` prepares the folder: run it once with the workshop project, as `bash setup.sh project_462001520`, and it fills in job.sh, sets up Git and commits the starting point. `RESULTS.md` is the table to fill in.
 
-## Background
+Submit two jobs. Both run the same script, and each writes its results to its own file:
 
-Asynchronous GPUs. When Python calls a GPU operation, PyTorch queues the work and returns immediately; the GPU works through the queue in the background. The CPU only waits when it needs a result back — a `.item()`, a print, a copy to host memory. Each of those is a synchronisation point: the CPU stops until the GPU has finished everything queued so far.
+```bash
+sbatch job.sh                                  # normal run   → slow-training_<job ID>.out
+sbatch --job-name=profile job.sh --profile     # profile run  → profile_<job ID>.out
+```
 
-The GPU can only be as busy as the CPU keeps it. In a Python training loop the CPU prepares every batch and launches every kernel. If preparing a batch takes longer than the GPU needs to process it, the GPU sits idle, however fast its convolutions are. A profile sorted by GPU time will still show the convolutions at the top — because almost nothing else runs on the GPU.
+Both take about 2 minutes. Check whether they're still running with squeue --me: when your jobs no longer appear in the list, they're done.
 
-Profiling records how long each operation takes, on the CPU and on the GPU, and gives you a ranked list. The script labels its four phases — augmentation, copying to the device, the training step and logging — so they show up by name. The timeline in `trace.json` opens in Perfetto and shows the gaps where the GPU waits. A profile only covers what it records, though: the timer in the script covers the whole loop, and the two do not always agree.
+Now start the agent in the same folder:
+
+```bash
+module load Local-LAIF lumi-aif-agents
+opencode
+```
+
+Keep this terminal for OpenCode. For sbatch and squeue later, open a second terminal (another Login node shell at www.lumi.csc.fi) and cd to the same folder. Slurm doesn't work inside OpenCode.
 
 
 ##  Part 1 — Find the slow part (10 min) 
