@@ -14,8 +14,6 @@ Work in `materials/ex3-slow-training/`. If OpenCode is open, quit it (type `/exi
 
 ```bash
 cd /scratch/project_462001520/$USER/agent-workshop/materials/ex3-slow-training
-module load Local-LAIF lumi-aif-agents
-opencode
 ```
 
 `train_shapes.py` trains a small convolutional network to tell circles, squares and crosses apart in noisy 48×48 images. It generates its own data, so there is nothing to download, and it reports time per step and test accuracy. With `--profile` it profiles ten steady-state steps instead of training, and writes a timeline to `trace.json`. It works as it stands, and the model should not need to change.
