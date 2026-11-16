@@ -21,7 +21,7 @@ Go to [www.lumi.csc.fi](https://www.lumi.csc.fi), log in, and open **Login node 
 
 Give the agent its own directory, under version control, so you can see and undo every change it makes.
 ```bash
-export PROJECT=project_462001444     # the workshop project
+export PROJECT=project_462001520     # the workshop project
 mkdir -p /scratch/$PROJECT/$USER/first-steps     # your own directory in the project
 cd /scratch/$PROJECT/$USER
 git clone https://github.com/lumi-ai-factory/Run-AI-agents-with-LUMI-Workshop.git agent-workshop
