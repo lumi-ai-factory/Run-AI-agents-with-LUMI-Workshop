@@ -11,7 +11,7 @@ The 20 newsgroups dataset contains about 20,000 Usenet messages in 20 topics. Th
 Quit OpenCode if it's open (`/exit`). Then go to the exercise folder and submit the job right away, so it runs while you work:
 
 ```bash
-cd /scratch/project_462001520/$USER/agent-workshop/materials/ex3-text-classification
+cd /scratch/project_462001520/$USER/agent-workshop/materials/ex3-slow-training
 sbatch job.sh pytorch_20ng_bert.py      # output → bert_<job ID>.out
 ```
 
