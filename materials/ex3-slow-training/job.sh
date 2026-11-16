@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=slow-training
-#SBATCH --account=project_462001444
+#SBATCH --account=project_462001520
 #SBATCH --partition=small-g
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
